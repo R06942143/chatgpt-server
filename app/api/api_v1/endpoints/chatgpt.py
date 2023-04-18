@@ -94,7 +94,7 @@ async def add_chroma_documents(team_knowledge: TeamDocument) -> Any:
 
 
 @router.post("/team_conversation")
-async def add_chroma_documents(team_document: TeamDocument1) -> Any:
+async def team_conversation(team_document: TeamDocument1) -> Any:
     document_id = str(uuid4())
     team_conversation.add_texts(
         texts=[team_document.text[:3000]],
@@ -230,7 +230,7 @@ async def ask_with_embedding(history_embedding: HistoryAndEmbedding) -> Any:
 
 
 @router.get("/summarization")
-async def ask_with_embedding(text: str) -> Any:
+async def summarization(text: str) -> Any:
     chain = load_summarize_chain(llm=OpenAI(temperature=0), chain_type="map_reduce")
     docs = [Document(page_content=text)]
     ans = chain.run(docs)
@@ -238,7 +238,7 @@ async def ask_with_embedding(text: str) -> Any:
 
 
 @router.get("/team_page")
-async def ask_with_embedding(
+async def tema_page(
     question: str,
 ) -> Any:
     team_document_docs = team_document.similarity_search(question, k=30)
