@@ -144,3 +144,4 @@ tmp/
 .idea
 .vscode/
 nohup.out
+.chroma/
