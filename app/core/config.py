@@ -15,7 +15,9 @@ CONSUMER_SECRET_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/ConsumerSecr
 
 
 class Settings(BaseSettings):
-    ROLLBAR_TOKEN: str = "client.get_secret_value(SecretId=ROLLBAR_NAME)['SecretString']"
+    ROLLBAR_TOKEN: str = (
+        "client.get_secret_value(SecretId=ROLLBAR_NAME)['SecretString']"
+    )
     ENVIRONMENT: str = "local"
     API_PREFIX: str = "/chatgpt/api/v1"
     ROOT_PATH: str = ""
@@ -29,8 +31,8 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: list[Optional[str]] = []
     BACKEND_CORS_ORIGINS: List[str] = []
     SERVER_HOST: AnyHttpUrl = "http://localhost:8000"
-    SQLALCHEMY_DATABASE_URI: str = (
-        os.environ.get("SQLALCHEMY_DATABASE_URI", "postgresql://test:password@127.0.0.1:5432/test")
+    SQLALCHEMY_DATABASE_URI: str = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI", "postgresql://test:password@127.0.0.1:5432/test"
     )
 
     class Config:

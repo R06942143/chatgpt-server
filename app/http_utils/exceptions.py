@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class ErrorCode(Enum):
-
     INVALID_VALUE = "INVALID_VALUE"  # 400
     BAD_REQUEST = "BAD_REQUEST"
     SF_BAD_REQUEST = "SF_BAD_REQUEST"
@@ -74,9 +73,7 @@ class ABCError(Exception):
 
 
 class InvalidDataFormat(ABCError):
-    message = (
-        "{class_name}: InvalidDataFormat occurred for user: {user_id} in workspace: {workspace_id}. Response content: {trace}"
-    )
+    message = "{class_name}: InvalidDataFormat occurred for user: {user_id} in workspace: {workspace_id}. Response content: {trace}"
 
 
 class InvalidPhoneFormat(ABCError):
@@ -84,13 +81,9 @@ class InvalidPhoneFormat(ABCError):
         return f"{self.class_name}: Invalid Format occurred for Phone: {self.extra_data['phone']}."
 
 
-
-
 class UserNotFound(ABCError):
     def __str__(self):
         return f"cannot find user({self.user_id}) in server."
-
-
 
 
 class UnConnected(ABCError):

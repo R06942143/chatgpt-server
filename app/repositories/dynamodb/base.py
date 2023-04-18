@@ -41,10 +41,15 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
                 for item in self.model.query(
                     hash_key=partition_key,
                     range_key_condition=sort_key_condition,
-                    filter_condition=filter_condition
+                    filter_condition=filter_condition,
                 )
             ]
-        return [item for item in self.model.query(hash_key=partition_key, filter_condition=filter_condition)]
+        return [
+            item
+            for item in self.model.query(
+                hash_key=partition_key, filter_condition=filter_condition
+            )
+        ]
 
     def get(
         self,
@@ -111,7 +116,10 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     ) -> None:
         if sort_key is not None:
             db_obj.delete(
-                ((db_obj._hash_keyname == partition_key) & (db_obj._range_keyname == sort_key))
+                (
+                    (db_obj._hash_keyname == partition_key)
+                    & (db_obj._range_keyname == sort_key)
+                )
             )
         if sort_key is None:
             db_obj.delete((db_obj._hash_keyname == partition_key))
