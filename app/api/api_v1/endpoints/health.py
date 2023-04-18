@@ -1,8 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends
-
-from app.api import deps
+from fastapi import APIRouter
 
 router = APIRouter()
 

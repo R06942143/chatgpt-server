@@ -1,8 +1,6 @@
 from langchain.llms import OpenAI
-from langchain import LLMMathChain
-from langchain.memory import ChatMessageHistory, DynamoDBChatMessageHistory, RedisChatMessageHistory
+from langchain.memory import DynamoDBChatMessageHistory
 # from langchain.chains import ConversationChain
-from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.utilities import GoogleSearchAPIWrapper
 from langchain.agents import ZeroShotAgent, Tool, AgentExecutor
 from langchain.vectorstores import Chroma
@@ -12,13 +10,12 @@ from langchain.embeddings import OpenAIEmbeddings
 from uuid import uuid4
 from typing import Dict, List, Any
 
-from pydantic import BaseModel, Extra, Field, root_validator
+from pydantic import BaseModel, Extra, root_validator
 from langchain.prompts import PromptTemplate
 
 from langchain.chains.conversation.prompt import PROMPT
 from langchain.chains.llm import LLMChain
 from langchain.memory.buffer import ConversationBufferMemory
-from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts.base import BasePromptTemplate
 from langchain.chains.summarize import load_summarize_chain
 from langchain.chains import SequentialChain
@@ -26,7 +23,7 @@ from langchain.docstore.document import Document
 from langchain.chains.question_answering import load_qa_chain
 
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
 router = APIRouter()
 embeddings = OpenAIEmbeddings(openai_api_key="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")
