@@ -27,9 +27,7 @@ from langchain.chains.question_answering import load_qa_chain
 from fastapi import APIRouter
 
 router = APIRouter()
-embeddings = OpenAIEmbeddings(
-    openai_api_key="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"
-)
+embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 team_document = Chroma(
     collection_name="team_document",
     embedding_function=embeddings,
