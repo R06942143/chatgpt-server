@@ -22,12 +22,13 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.chains import SequentialChain
 from langchain.docstore.document import Document
 from langchain.chains.question_answering import load_qa_chain
+from app.core.config import settings
 
 
 from fastapi import APIRouter
 
 router = APIRouter()
-embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+embeddings = OpenAIEmbeddings(openai_api_key=settings.OPENAI_API_KEY)
 team_document = Chroma(
     collection_name="team_document",
     embedding_function=embeddings,
@@ -48,7 +49,6 @@ team_conversation = Chroma(
 )
 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 memory＿123 = ConversationBufferMemory()
 memory＿234 = ConversationBufferMemory(memory_key="chat_history")
 
@@ -65,7 +65,7 @@ tools = [
 @router.get("/")
 async def ask(text: str) -> Any:
     llm = OpenAI(
-        openai_api_key=OPENAI_API_KEY, temperature=0.9
+        openai_api_key=settings.OPENAI_API_KEY, temperature=0.9
     )  # 大的 temperature 会让输出有更多的随机性
     return llm(text)
 
@@ -109,7 +109,7 @@ async def ask_with_history(text: str) -> Any:
     )
     memory_567 = ConversationBufferMemory(chat_memory=chat_history)
     llm = OpenAI(
-        openai_api_key=OPENAI_API_KEY, temperature=0.9
+        openai_api_key=settings.OPENAI_API_KEY, temperature=0.9
     )  # 大的 temperature 会让输出有更多的随机性
     conversation = ConversationChain(llm=llm, verbose=True, memory=memory_567)
 

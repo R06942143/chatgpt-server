@@ -10,8 +10,6 @@ client = boto3.client("secretsmanager")
 SECRET_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/JWTSecret"
 ROLLBAR_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/RollbarToken"
 SQL_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/SqlalchemyDatabaseURI"
-CONSUMER_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/ConsumerID"
-CONSUMER_SECRET_NAME = f"{os.environ.get('ENVIRONMENT', 'staging')}/ConsumerSecret"
 
 
 class Settings(BaseSettings):
@@ -34,6 +32,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: str = os.environ.get(
         "SQLALCHEMY_DATABASE_URI", "postgresql://test:password@127.0.0.1:5432/test"
     )
+    OPENAI_API_KEY: str
 
     class Config:
         case_sensitive = True
