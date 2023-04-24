@@ -71,7 +71,9 @@ async def log_requests(request: Request, call_next):
             return True
 
         user = fake_auth(token=token)
-        request.state.user = user
+        request.state.user = (
+            user  # In fastAPI, we could use request.state to store some data
+        )
     except Exception as e:  # noqa
         pass
 
