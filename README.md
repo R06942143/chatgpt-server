@@ -18,7 +18,14 @@ graph TD
     D -->|Reasoning Traces| D
     D --> E[Thought]
     E --> F[Actions]
+    F --> Google[Google Search]
+    Google[Google Search] --> F
+    F --> Vector[Chroma]
+    Vector[Chroma] --> F
+    F --> DynamoDB[DynamoDB]
+    DynamoDB[DynamoDB] --> F
     F --> G{Observation}
     G -->|Done| H[Response]
     G -->|Rethink| D
+
 ```
